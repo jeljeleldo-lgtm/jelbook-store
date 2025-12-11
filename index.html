@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JelBook Store</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+
+  <style>
+  body { font-family: 'Cambria', sans-serif; background:#ded1a6; }
+  .hero { background:#eee2cd; padding:60px 0; }
+  .custom_orange-btn { background:#ff7a00; color:  #201903; padding:10px 18px; border-radius:6px; text-decoration:none; }
+  .custom_dark-btn { background:#343a40; color:#e6cfaf; padding:10px 18px; border-radius:6px; text-decoration:none; }
+  .card .price { font-weight:700; color:#ed120b; }
+  .navbar-brand img { height:40px; margin-right:8px; }
+  .cart-count { background:#e03246; color:#d1c4a2; font-size:12px; padding:2px 6px; border-radius:12px; position:relative; top:-10px; left:-6px; }
+  footer { background:#000000; color:#eed99e; padding:20px 0; }
+
+</style>
+</head>
+<body> 
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img src="images/logo.png" alt="logo">
+      <span>JelBook Store</span>
+    </a>
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#navmenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navmenu" class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#books">Books</a></li>
+        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+
+        <li class="nav-item mx-2">
+  <button class="btn btn-outline-secondary position-relative" id="cartBtn" data-toggle="modal" data-target="#cartModal">
+    <img src="images/cart.png" alt="Cart" style="height:25px;">
+    <span id="cartCount" class="cart-count d-none">0</span>
+  </button>
+</li>
+
+
+        <li class="nav-item">
+          <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#loginModal" id="loginBtn">Login</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-success" data-toggle="modal" data-target="#registerModal">Register</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <h1><bold>Welcome to <br/> JelBook Store</bold></h1>
+        <p>Find bestsellers, new releases, and timeless classics. Fast shipping and curated recommendations for every reader.</p>
+        <a href="#books" class="custom_orange-btn mr-2">Shop Books</a>
+        <a href="#contact" class="custom_dark-btn">Contact Us</a>
+      </div>
+      <div class="col-md-6 text-center">
+        <div class="slider position-relative">
+          <img src="images/book-slide1.png" class="img-fluid slider-img active">
+          <img src="images/book-slide2.png" class="img-fluid slider-img">
+          <img src="images/book-slide3.png" class="img-fluid slider-img">
+          <img src="images/book-slide4.png" class="img-fluid slider-img">
+          <img src="images/book-slide5.png" class="img-fluid slider-img">
+    </div>
+  </div>
+</section>
+
+<style>
+  .slider {
+    height: 300px; 
+    position: relative;
+    overflow: hidden;
+  }
+
+  .slider-img {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 150%;
+    object-fit: contain; 
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+  }
+
+  .slider-img.active {
+    display: block;
+    opacity: 1;
+  }
+</style>
+
+
+<script>
+  // ---------- Book Slider Auto-rotate ----------
+  const slides = document.querySelectorAll('.slider-img');
+  let currentSlide = 0;
+
+  function showSlide(index) {
+    slides.forEach((img, i) => img.classList.toggle('active', i === index));
+  }
+
+  // Initial display
+  showSlide(currentSlide);
+
+  // Rotate slides every 5 seconds
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }, 3000);
+</script>
+
+
+<!-- SERVICES -->
+<section id="services" class="py-5">
+  <div class="container">
+    <h2 class="mb-3">Our Services</h2>
+    <p class="text-muted">We offer book delivery, gift wrapping, and book recommendations curated by our staff.</p>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h5>Home Delivery</h5>
+          <p>Fast nationwide delivery with tracking. Same-day delivery in selected cities.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h5>Gift Wrap & Messages</h5>
+          <p>Gift wrap options and handwritten notes available at checkout.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card p-3">
+          <h5>Curated Picks</h5>
+          <p>Monthly picks by our editorial team across genres: fiction, non-fiction, and study guides.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<!-- BOOKS -->
+<section id="books" class="py-5" style="background-color: #eee2cd;">
+  <div class="container">
+    <h2 class="mb-3">Featured Books</h2>
+    <p class="text-muted">Hand-picked books across popular categories.</p>
+
+    <div class="row" id="bookList">
+
+      <!-- Book Card Template (duplicated server-side or JS). Update images/names/descriptions/prices -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book1.png" class="card-img-top" alt="Book 1" style="height: 320px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Dosage of Serotinin By:Inksteady</h5>
+            <p class="card-text">Serotonin is a natural mood stabilizer. You should be more concentrated, mentally stable, happier, and calmer when your serotonin levels are normal. 
+              Since higher serotonin levels increase feelings of well-being, trust, and affiliation, some scholars refer to serotonin as the "happiness chemical."</p>
+            <div class="mt-auto">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="price">₱2,500.00</div>
+                <div>
+                  <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b1" data-title="Dosage of Serotinin" data-price="2500.00">Add to Cart</button>
+                  <button class="btn btn-sm btn-primary buy-now" data-id="b1" data-title="Dosage of Serotinin" data-price="2500.00">Buy Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book2.png" class="card-img-top" alt="Book 2" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">POSSESSIVE 5: Calyx Vargaz By:Cecelib</h5>
+            <p class="card-text">Calyx Vargaz was a self-proclaim playboy, self-centered and charismatic. He was downright handsome with his beguiling pitch-black eyes and set of dimples.
+                                 According to a bachelor magazine, he was worth billions and that made women swoon over him...</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱230.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b2" data-title="POSSESSIVE 5: Calyx Vargaz" data-price="230.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b2" data-title="POSSESSIVE 5: Calyx Vargaz" data-price="230.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book3.png" class="card-img-top" alt="Book 3" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Safe Skies, Archer (University Series #2) By:4reuminct</h5>
+            <p class="card-text">Hiro, a student pilot from DLSU, was very clear with his number one goal in life. It was to study in the best flying school in Florida. 
+                                However, he agreed to have a no strings attached relationship with Yanna from FEU Tourism, the woman who cannot be tamed with her sexcapades.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱500.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b3" data-title="Safe Skies, Archer" data-price="500.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b3" data-title="Safe Skies, Archer" data-price="500.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- more books -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book4.png" class="card-img-top" alt="Book 4" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">POSSESSIVE 21: Knight Velasquez By:Cecelib</h5>
+            <p class="card-text">Knight Velasquez would willingly and silently sacrifice himself in order to protect the people he cared the most about, even if it meant endless trouble and deceit.
+                                  But his life soon took a quick turn when he fell for the woman who saved him from his world of pain.  </p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱230.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b4" data-title="POSSESSIVE 21: Knight Velasquez" data-price="230.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b4" data-title="POSSESSIVE 21: Knight Velasquez" data-price="230.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book5.png" class="card-img-top" alt="Book 5" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Kiss me if you can By:Zig</h5>
+            <p class="card-text">The actor Chase C. Miller, has bright purple eyes and striking beauty that captures everyone's attention. After spending an intense night with him,
+                                  Josh had a mark on his ear and a secret that should never be discovered. Josh got pregnant with Chase!</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱1,000.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b5" data-title="Kiss me if you can" data-price="1000.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b5" data-title="Kiss me if you can" data-price="1000.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book6.png" class="card-img-top" alt="Book 6" style="height: 320px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">I Love You Since 1892 By:Binibining Mia</h5>
+            <p class="card-text">Hindi intensiyon ni Carmela Isabella ang umibig, lalo na sa taong 1892. Mula sa taong 2016 ay mapupunta siya sa nakaraan nang may isang misyon: 
+                                huwag hayaang umibig sa kanya si Juanito Alfonso, ang anak ng kilalang gobernadorcillo at ang lalaking nakatakda niyang makaisang-dibdib.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱500.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b6" data-title="I Love You Since 1892" data-price="500.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b6" data-title="I Love You Since 1892" data-price="500.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book7.png" class="card-img-top" alt="Book 7" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Blown by the Wind (Costa Leona Series #4) By:Jonaxx</h5>
+            <p class="card-text">Barely escaping a tragedy, Eurydyce Amethyst Saniel, a young rising star, 
+                                is found unconscious inside a small boat on the shores of Costa Leona.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱1,000.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b7" data-title="Blown by the Wind" data-price="1000.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b7" data-title="Blown by the Wind" data-price="1000.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book8.png" class="card-img-top" alt="Book 8" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Getting To You (Azucarera Series #2) By:Jonaxx</h5>
+            <p class="card-text">Crisanta Camila Alcazar is the baby girl of Altagracia. Bunsong anak ng may-ari ng isang malaking 
+                                 azucarera, she was pampered and always prim and proper.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱850.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b8" data-title="Getting To You" data-price="850.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b8" data-title="Getting To You" data-price="850.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book9.png" class="card-img-top" alt="Book 9" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Hell University By:KnightInBlack</h5>
+            <p class="card-text">A place where everything is mysterious, enchanting, bloody, and shitty. Entering is the other way of suicidal. 
+                                Just one wrong move and everything will blur. A lot of secrets are being hid. "Once you enter, there's no turning back."</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱950.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b9" data-title="Hell University" data-price="950.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b9" data-title="Hell University" data-price="950.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book10.png" class="card-img-top" alt="Book 10" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Heartbreaker By:JFstories</h5>
+            <p class="card-text">He is her human trophy. Carlyn doesn't care what anyone thinks of her, as long as she has Jordan Moises Herrera, 
+                                 her sensible and almost perfect boyfriend from the Science Class.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱700.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b10" data-title="Heartbreaker" data-price="700.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b10" data-title="Heartbreaker" data-price="700.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book11.png" class="card-img-top" alt="Book 11" style="height: 320px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Aroused Darkkon (Sartori #4) By:Reintold</h5>
+            <p class="card-text">Darkkon, the eldest of them four. Protective. Manipulative. Addictive. Aggressive. Possessive. 
+                                Obsessive. His beast got aroused and became a psychotic stalker.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱500.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b11" data-title="Aroused Darkkon" data-price="500.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b11" data-title="Aroused Darkkon" data-price="500.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book12.png" class="card-img-top" alt="Book 12" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Under the Roaring Thunders (Strawberries and Cigarettes #4) By:Ineryss</h5>
+            <p class="card-text">"Don't be entitled. When you feel entitled, your mindset will automatically think that you 
+                                 are spoiled. You become a slave to your wants instead of your needs.</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱650.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b12" data-title="Under the Roaring Thunders" data-price="650.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b12" data-title="Under the Roaring Thunders" data-price="650.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book13.png" class="card-img-top" alt="Book 13" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">HE'S into HER By:Maxinejiji</h5>
+            <p class="card-text">With a promise to change in his last year in high school, Deib Lohr Enrile's plans to stop his bullying ways suddenly change when he crosses 
+                                paths with Maxpein Zin del Valle. As Deib meets his match in Max, can he finally change his ways, or will he be in for something more?</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱1,500.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b13" data-title="HE'S into HER" data-price="1500.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b13" data-title="HE'S into HER" data-price="1500.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book14.png" class="card-img-top" alt="Book 14" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Knock, Knock, Professor By:irshwndy</h5>
+            <p class="card-text">In the midst of solving mysteries and exploring their undeniable chemistry, 
+                               Fifteen Salustiana is determined to help Xildius Vouganville confront his dark past and embrace the light once more. </p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱550.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b14" data-title="Knock, Knock, Professor" data-price="550.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b14" data-title="Knock, Knock, Professor" data-price="550.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="images/book15.png" class="card-img-top" alt="Book 15" style="height: 310px; width: 100%; object-fit: cover; border-radius: 4px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">"Defend Me, Attorney." (Law Series #1) By:Josh Gonzales</h5>
+            <p class="card-text"> "If pleading guilty means protecting you, I will."</p>
+            <div class="mt-auto d-flex justify-content-between align-items-center">
+              <div class="price">₱430.00</div>
+              <div>
+                <button class="btn btn-sm btn-outline-primary add-to-cart" data-id="b15" data-title="Defend Me, Attorney." data-price="430.00">Add to Cart</button>
+                <button class="btn btn-sm btn-primary buy-now" data-id="b15" data-title="Defend Me, Attorney." data-price="430.00">Buy Now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div> <!-- row -->
+  </div>
+</section>
+
+ 
+
+<!-- CONTACT -->
+<section id="contact" class="py-5" style="background-color: #ded1a6;">
+  <div class="container">
+    <h2>Contact Us</h2>
+    <p class="text-muted">Questions? Reach out and we'll get back within 24 hours.</p>
+    <div class="row">
+      <div class="col-md-8">
+        <form id="contactForm" onsubmit="event.preventDefault(); alert('Message sent (demo).');">
+          <div class="form-row">
+            <div class="form-group col-md-6"><input class="form-control" placeholder="Name" required></div>
+            <div class="form-group col-md-6"><input class="form-control" type="email" placeholder="Email" required></div>
+          </div>
+          <div class="form-group"><textarea class="form-control" rows="4" placeholder="Message" required></textarea></div>
+          <button class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <h5>Visit Us</h5> 
+        <p>So. Nalbot Poblacion, Taytay, Palawan</p>
+        <h5>Call Us </h5>
+        <p>0987-654-3210 (Globe)</p>
+        <h5>Find Us</h5>
+        <a href="https://www.facebook.com/Jelly.Eldo" target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-facebook" style="font-size: 2rem; color: #3b5998;"></i></a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container text-center">
+    <p class="mb-0">&copy; 2025 JelBook Store — All Rights Reserved</p>
+  </div>
+</footer>
+
+<!-- CART MODAL -->
+<div class="modal fade" id="cartModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Cart</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div id="emptyCartMessage" class="alert alert-info d-none">Your cart is empty. Start shopping!</div>
+        <ul id="cartItems" class="list-group mb-3"></ul>
+        <p class="text-right font-weight-bold">
+          Total: ₱<span id="cartTotal">0.00</span>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal">Continue Shopping</button>
+        <button class="btn btn-success" id="checkoutBtn">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- LOGIN MODAL -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+  <div class="modal-dialog">
+    <form class="modal-content" id="loginForm">
+      <div class="modal-header"><h5 class="modal-title">Login</h5><button class="close" data-dismiss="modal">&times;</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" class="form-control" required></div>
+        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" class="form-control" required></div>
+        <div id="loginError" class="text-danger d-none"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Login</button>
+        <button type="button" class="btn btn-link" data-dismiss="modal" data-toggle="modal" data-target="#registerModal">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- REGISTER MODAL -->
+<div class="modal fade" id="registerModal" tabindex="-1">
+  <div class="modal-dialog">
+    <form class="modal-content" id="registerForm">
+      <div class="modal-header"><h5 class="modal-title">Register</h5><button class="close" data-dismiss="modal">&times;</button></div>
+      <div class="modal-body">
+        <div class="form-group"><label>Name</label><input id="regName" class="form-control" required></div>
+        <div class="form-group"><label>Email</label><input type="email" id="regEmail" class="form-control" required></div>
+        <div class="form-group"><label>Password</label><input type="password" id="regPassword" class="form-control" minlength="6" required></div>
+        <div id="regError" class="text-danger d-none"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" type="submit">Create Account</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Optional JS: jQuery, Popper, Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+<script>
+  // ---------- Enhanced cart system with quantity controls and remove functionality ----------
+  const CART_KEY = 'jelly_cart_v1';
+  
+  function getCart(){ 
+    return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); 
+  }
+  
+  function saveCart(c){ 
+    localStorage.setItem(CART_KEY, JSON.stringify(c)); 
+    updateCartCount(); 
+  }
+  
+  function updateCartCount(){
+    const c = getCart(); 
+    const count = c.reduce((s,i)=>s+i.qty,0);
+    const el = document.getElementById('cartCount'); 
+    if(count>0){ 
+      el.classList.remove('d-none'); 
+      el.textContent = count; 
+    } else { 
+      el.classList.add('d-none'); 
+    }
+  }
+
+  function addToCart(item){
+    let cart = getCart();
+    const idx = cart.findIndex(i=>i.id===item.id);
+    if(idx>-1){
+      cart[idx].qty++;
+    } else {
+      cart.push({...item, qty:1});
+    }
+    saveCart(cart);
+  }
+
+  function updateCartModal() {
+    const cart = getCart();
+    const cartItemsEl = document.getElementById("cartItems");
+    const cartTotalEl = document.getElementById("cartTotal");
+    const emptyMessage = document.getElementById("emptyCartMessage");
+
+    cartItemsEl.innerHTML = "";
+    let total = 0;
+
+    if(cart.length === 0) {
+      emptyMessage.classList.remove('d-none');
+      cartTotalEl.textContent = '0.00';
+      return;
+    } else {
+      emptyMessage.classList.add('d-none');
+    }
+
+    cart.forEach(item => {
+      const itemTotal = item.qty * item.price;
+      total += itemTotal;
+
+      const li = document.createElement("li");
+      li.className = "list-group-item";
+
+      li.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-1">${item.title}</h6>
+            <small class="text-muted">₱${item.price.toFixed(2)} each</small>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="input-group input-group-sm" style="width: 120px;">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary btn-decrease" data-id="${item.id}">-</button>
+              </div>
+              <input type="number" class="form-control text-center cart-qty" value="${item.qty}" data-id="${item.id}" min="1" readonly>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary btn-increase" data-id="${item.id}">+</button>
+              </div>
+            </div>
+            <span class="ml-3" style="min-width: 100px; text-align: right;">₱${itemTotal.toFixed(2)}</span>
+            <button class="btn btn-sm btn-danger ml-2 remove-item" data-id="${item.id}">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+
+      cartItemsEl.appendChild(li);
+    });
+
+    cartTotalEl.textContent = total.toFixed(2);
+  }
+
+  // Remove item from cart
+  function removeFromCart(id){ 
+    let cart = getCart(); 
+    cart = cart.filter(i=>i.id!==id); 
+    saveCart(cart); 
+    updateCartModal(); 
+  }
+
+  // Update quantity
+  function updateQuantity(id, change){
+    let cart = getCart();
+    const idx = cart.findIndex(i=>i.id===id);
+    if(idx>-1){
+      cart[idx].qty += change;
+      if(cart[idx].qty <= 0){
+        cart.splice(idx, 1); // Remove if quantity is 0
+      }
+      saveCart(cart);
+      updateCartModal();
+    }
+  }
+
+  // Auto update when cart modal is opened
+  $("#cartModal").on("shown.bs.modal", updateCartModal);
+
+  // Attach event listeners
+  document.addEventListener('click', function(e){
+    if(e.target.classList.contains('add-to-cart')){
+      const id=e.target.dataset.id, title=e.target.dataset.title, price=parseFloat(e.target.dataset.price);
+      addToCart({id,title,price}); 
+      updateCartCount();
+      $('#cartModal').modal('show'); 
+      updateCartModal();
+    }
+    if(e.target.classList.contains('buy-now')){
+      const id=e.target.dataset.id, title=e.target.dataset.title, price=parseFloat(e.target.dataset.price);
+      // quick checkout: add item then show cart
+      addToCart({id,title,price}); 
+      updateCartCount(); 
+      $('#cartModal').modal('show'); 
+      updateCartModal();
+    }
+    if(e.target.classList.contains('remove-item') || e.target.closest('.remove-item')){
+      const btn = e.target.classList.contains('remove-item') ? e.target : e.target.closest('.remove-item');
+      if(confirm('Remove this item from cart?')){
+        removeFromCart(btn.dataset.id);
+      }
+    }
+    if(e.target.classList.contains('btn-increase')){
+      updateQuantity(e.target.dataset.id, 1);
+    }
+    if(e.target.classList.contains('btn-decrease')){
+      updateQuantity(e.target.dataset.id, -1);
+    }
+  });
+
+  // Checkout (demo)
+  document.getElementById('checkoutBtn').addEventListener('click', function(){
+    const cart = getCart();
+    if(cart.length===0){ 
+      alert('Cart is empty'); 
+      return; 
+    }
+    const user = JSON.parse(localStorage.getItem('jelly_user') || 'null');
+    if(!user){ 
+      alert('Please login or register to checkout.'); 
+      $('#cartModal').modal('show ');
+      $('#loginModal').modal('show'); 
+      return; 
+    }
+    // Demo checkout: show basic summary and clear cart
+    let summary = 'Order Summary:\n\n';
+    let total=0;
+    cart.forEach(it=>{ 
+      summary += `${it.title} x${it.qty} - ₱${(it.price*it.qty).toFixed(2)}\n`; 
+      total += it.price*it.qty; 
+    });
+    summary += '\nTotal: ₱' + total.toFixed(2);
+    if(confirm(summary + '\n\nPlace order? (demo)')){
+      localStorage.removeItem(CART_KEY);
+      updateCartCount();
+      updateCartModal();
+      $('#cartModal').modal('hide');
+      alert('Order placed (demo). Thank you, ' + user.name + '!');
+    }
+  });
+
+  // ---------- Login/Register (simple demo with localStorage) ----------
+  function getUsers(){ 
+    return JSON.parse(localStorage.getItem('jelly_users') || '[]'); 
+  }
+  
+  function saveUsers(u){ 
+    localStorage.setItem('jelly_users', JSON.stringify(u)); 
+  }
+
+  document.getElementById('registerForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('regName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const pass = document.getElementById('regPassword').value;
+    const err = document.getElementById('regError');
+    err.classList.add('d-none'); 
+    err.textContent = '';
+    const users = getUsers();
+    if(users.some(u=>u.email===email)){ 
+      err.classList.remove('d-none'); 
+      err.textContent = 'Email already registered.'; 
+      return; 
+    }
+    users.push({name,email,password:pass});
+    saveUsers(users);
+    localStorage.setItem('jelly_user', JSON.stringify({name,email}));
+    $('#registerModal').modal('hide');
+    alert('Account created and logged in as ' + name);
+    updateAuthUI();
+  });
+
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const pass = document.getElementById('loginPassword').value;
+    const err = document.getElementById('loginError'); 
+    err.classList.add('d-none'); 
+    err.textContent='';
+    const users = getUsers();
+    const u = users.find(x=>x.email===email && x.password===pass);
+    if(!u){ 
+      err.classList.remove('d-none'); 
+      err.textContent = 'Invalid credentials'; 
+      return; 
+    }
+    localStorage.setItem('jelly_user', JSON.stringify({name:u.name,email:u.email}));
+    $('#loginModal').modal('hide');
+    alert('Welcome back, ' + u.name);
+    updateAuthUI();
+  });
+
+  function updateAuthUI(){
+    const user = JSON.parse(localStorage.getItem('jelly_user') || 'null');
+    const loginBtn = document.getElementById('loginBtn');
+    if(user){ 
+      loginBtn.textContent = 'Hi, ' + user.name.split(' ')[0]; 
+      loginBtn.classList.remove('btn-primary'); 
+      loginBtn.classList.add('btn-outline-primary');
+      loginBtn.onclick = ()=>{ 
+        if(confirm('Logout?')){ 
+          localStorage.removeItem('jelly_user'); 
+          updateAuthUI(); 
+        } 
+      };
+    } else {
+      loginBtn.textContent = 'Login'; 
+      loginBtn.classList.remove('btn-outline-primary'); 
+      loginBtn.classList.add('btn-primary');
+      loginBtn.onclick = null;
+    }
+  }
+
+  // Initialize
+  updateCartCount();
+  updateAuthUI();
+
+  // Load sample images fallback (if images missing, use placeholder)
+  document.querySelectorAll('img').forEach(img=>{
+    img.onerror = ()=>{ 
+      img.src = 'https://via.placeholder.com/400x600?text=Book+Image'; 
+    };
+  });
+
+</script>
+</body>
+</html>
